@@ -17,6 +17,7 @@ type XFeed struct {
 
 type XFeedItem struct {
 	UniqueObjectID     string `xml:"uniqueobjectid"`
+	Minprice           string `xml:"minprice"`
 	Street             string `xml:"street"`
 	HouseNumber        string `xml:"houseNumber"`
 	HouseNumberAddtion string `xml:"houseNumberAddtion"`
@@ -59,10 +60,16 @@ func (item XFeedItem) ConvertToListing() (*models.Listing, error) {
 	}
 	address.HouseType = houseType
 
+	minPrice, err := strconv.ParseInt(strings.TrimSpace(item.Minprice), 10, 64)
+	if err != nil {
+		return nil, err
+	}
+
 	listing := models.Listing{
-		UID:     item.UniqueObjectID,
-		Address: address,
-		Title:   item.Projectnaam,
+		UID:      item.UniqueObjectID,
+		MinPrice: minPrice * 100,
+		Address:  address,
+		Title:    item.Projectnaam,
 	}
 	return &listing, nil
 }

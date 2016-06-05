@@ -17,8 +17,9 @@ type Address struct {
 }
 
 type Listing struct {
-	UID   string
-	Title string
+	UID      string
+	MinPrice int64
+	Title    string
 	Address
 }
 
@@ -28,6 +29,7 @@ func ScanListing(rows *sql.Rows) (*Listing, error) {
 
 	err := rows.Scan(
 		&listing.UID,
+		&listing.MinPrice,
 		&listing.Title,
 		&listing.Address.Country,
 		&listing.Address.Region,
@@ -47,7 +49,7 @@ func ScanListing(rows *sql.Rows) (*Listing, error) {
 
 func FetchOne(UID string, db *sql.DB) (*Listing, error) {
 	rows, err := db.Query(
-		`SELECT uid, title, country, region, city, street,
+		`SELECT uid, minprice, title, country, region, city, street,
                 postalcode, subarea, housenumber, housetype
          FROM listing WHERE uid = $1`, UID)
 
@@ -68,7 +70,7 @@ func FetchOne(UID string, db *sql.DB) (*Listing, error) {
 
 func FetchAll(db *sql.DB) ([]Listing, error) {
 	rows, err := db.Query(
-		`SELECT uid, title, country, region, city, street,
+		`SELECT uid, minprice, title, country, region, city, street,
                 postalcode, subarea, housenumber, housetype
          FROM listing`)
 
@@ -92,10 +94,11 @@ func FetchAll(db *sql.DB) ([]Listing, error) {
 func Save(listing Listing, db *sql.DB) error {
 	if l, _ := FetchOne(listing.UID, db); l != nil {
 		_, err := db.Exec(
-			"UPDATE listing set title = $1, country = $2, region = $3, "+
-				"city = $4, street = $5, postalcode = $6, subarea = $7, "+
-				"housenumber = $8, housetype = $9 WHERE uid = $10",
+			"UPDATE listing set title = $1, minprice = $2, country = $3, "+
+				"region = $4, city = $5, street = $6, postalcode = $7, "+
+				"subarea = $8, housenumber = $9, housetype = $10 WHERE uid = $11",
 			listing.Title,
+			listing.MinPrice,
 			listing.Address.Country,
 			listing.Address.Region,
 			listing.Address.City,
@@ -112,11 +115,12 @@ func Save(listing Listing, db *sql.DB) error {
 		return nil
 	}
 	_, err := db.Exec(
-		"INSERT INTO listing (uid, title, country, region, "+
+		"INSERT INTO listing (uid, minprice, title, country, region, "+
 			"city, street, postalcode, subarea, "+
 			"housenumber, housetype) VALUES ($1, $2, $3, "+
-			"$4, $5, $6, $7, $8, $9, $10)",
+			"$4, $5, $6, $7, $8, $9, $10, $11)",
 		listing.UID,
+		listing.MinPrice,
 		listing.Title,
 		listing.Address.Country,
 		listing.Address.Region,
