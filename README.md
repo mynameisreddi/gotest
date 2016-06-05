@@ -6,14 +6,14 @@
 2. To create table *listing* execute file *initdb.sql*. For example:
    
    `psql -U postgres haw.com/initdb.sql`
-3. To parse xml feed and fill database use:
+3. Parse xml feed and fill database:
    
    `go install haw.com/process`
     
    `$GOPATH/bin/process feed.xml partner`
 
-   Now only one partner is valid: xxx
-4. To start web-server use:
+   Now only one value for partner is allowed: xxx
+4. Start web-server:
     
    `go install haw.com/api/app`
     
