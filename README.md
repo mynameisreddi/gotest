@@ -1,9 +1,5 @@
 # gotest
 
-## Synopsis
-
-Housinganywhere.com's test job.
-
 ## Installation
 
 1. `cd gotest`
