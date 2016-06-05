@@ -3,6 +3,7 @@ package models
 import (
 	"database/sql"
 	"haw.com/constants"
+	"haw.com/db"
 )
 
 type Address struct {
@@ -47,8 +48,8 @@ func ScanListing(rows *sql.Rows) (*Listing, error) {
 	return &listing, nil
 }
 
-func FetchOne(UID string, db *sql.DB) (*Listing, error) {
-	rows, err := db.Query(
+func FetchOne(UID string) (*Listing, error) {
+	rows, err := db.GetDB().Query(
 		`SELECT uid, minprice, title, country, region, city, street,
                 postalcode, subarea, housenumber, housetype
          FROM listing WHERE uid = $1`, UID)
@@ -68,8 +69,8 @@ func FetchOne(UID string, db *sql.DB) (*Listing, error) {
 	return listing, nil
 }
 
-func FetchAll(db *sql.DB) ([]Listing, error) {
-	rows, err := db.Query(
+func FetchAll() ([]Listing, error) {
+	rows, err := db.GetDB().Query(
 		`SELECT uid, minprice, title, country, region, city, street,
                 postalcode, subarea, housenumber, housetype
          FROM listing`)
@@ -91,9 +92,9 @@ func FetchAll(db *sql.DB) ([]Listing, error) {
 	return listings, nil
 }
 
-func Save(listing Listing, db *sql.DB) error {
-	if l, _ := FetchOne(listing.UID, db); l != nil {
-		_, err := db.Exec(
+func Save(listing Listing) error {
+	if l, _ := FetchOne(listing.UID); l != nil {
+		_, err := db.GetDB().Exec(
 			"UPDATE listing set title = $1, minprice = $2, country = $3, "+
 				"region = $4, city = $5, street = $6, postalcode = $7, "+
 				"subarea = $8, housenumber = $9, housetype = $10 WHERE uid = $11",
@@ -114,7 +115,7 @@ func Save(listing Listing, db *sql.DB) error {
 		}
 		return nil
 	}
-	_, err := db.Exec(
+	_, err := db.GetDB().Exec(
 		"INSERT INTO listing (uid, minprice, title, country, region, "+
 			"city, street, postalcode, subarea, "+
 			"housenumber, housetype) VALUES ($1, $2, $3, "+
