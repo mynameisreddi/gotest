@@ -2,7 +2,7 @@
 
 ## Synopsis
 
-Houseanywhere.com's test job.
+Housinganywhere.com's test job.
 
 ## Installation
 
