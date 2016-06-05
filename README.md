@@ -12,7 +12,7 @@
     
    `$GOPATH/bin/process feed.xml partner`
 
-   Now only one value for partner is allowed: xxx
+   Now only one value for partner is allowed: `xxx`
 4. Start web-server:
     
    `go install haw.com/api/app`
