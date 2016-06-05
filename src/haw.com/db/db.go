@@ -9,13 +9,13 @@ import (
 var db *sql.DB
 
 func GetDB() *sql.DB {
-	DB_USER, DB_PASSWORD, DB_NAME := "postgres", "", "postgres"
 	if db == nil {
 		var err error
 		db, err = sql.Open(
 			"postgres",
-			fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable",
-				DB_USER, DB_PASSWORD, DB_NAME))
+			fmt.Sprintf(
+                "user=%s password=%s dbname=%s host=%s port=%d sslmode=disable",
+				USER, PASSWORD, DB_NAME, HOST, PORT))
 		if err != nil {
 			panic(err)
 		}
