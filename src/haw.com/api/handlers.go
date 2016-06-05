@@ -6,6 +6,7 @@ import (
 	"net/http"
 )
 
+//Super easy handler to fetch all listings in json.
 func Index(w http.ResponseWriter, r *http.Request) {
 	listings, err := models.FetchAll()
 	if err != nil {

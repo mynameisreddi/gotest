@@ -3,14 +3,14 @@ package constants
 type HouseType string
 
 const (
-	HOUSEBOAT   = "houseboat"
-	APPARTEMENT = "appartement"
-	GARAGE      = "garage"
-	ROOM        = "room"
-	VILLA       = "villa"
-	STUDIO      = "studio"
-	RESIDENCE   = "residence"
-	BUNGALOW    = "bungalow"
+	HOUSEBOAT   HouseType = "houseboat"
+	APPARTEMENT           = "appartement"
+	GARAGE                = "garage"
+	ROOM                  = "room"
+	VILLA                 = "villa"
+	STUDIO                = "studio"
+	RESIDENCE             = "residence"
+	BUNGALOW              = "bungalow"
 )
 
 type Language string

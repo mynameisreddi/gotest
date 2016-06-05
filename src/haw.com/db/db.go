@@ -6,6 +6,7 @@ import (
 	_ "github.com/lib/pq"
 )
 
+//Singleton, representing database pool connections.
 var db *sql.DB
 
 func GetDB() *sql.DB {
@@ -14,7 +15,7 @@ func GetDB() *sql.DB {
 		db, err = sql.Open(
 			"postgres",
 			fmt.Sprintf(
-                "user=%s password=%s dbname=%s host=%s port=%d sslmode=disable",
+				"user=%s password=%s dbname=%s host=%s port=%d sslmode=disable",
 				USER, PASSWORD, DB_NAME, HOST, PORT))
 		if err != nil {
 			panic(err)

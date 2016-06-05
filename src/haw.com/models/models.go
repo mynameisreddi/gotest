@@ -17,6 +17,7 @@ type Address struct {
 	constants.HouseType
 }
 
+//Uniform model for represent listing from any type of feed item.
 type Listing struct {
 	UID      string
 	MinPrice int64
@@ -24,7 +25,7 @@ type Listing struct {
 	Address
 }
 
-func ScanListing(rows *sql.Rows) (*Listing, error) {
+func scanListing(rows *sql.Rows) (*Listing, error) {
 	var listing Listing
 	var houseType string
 
@@ -48,6 +49,7 @@ func ScanListing(rows *sql.Rows) (*Listing, error) {
 	return &listing, nil
 }
 
+//Fetch listing by UID.
 func FetchOne(UID string) (*Listing, error) {
 	rows, err := db.GetDB().Query(
 		`SELECT uid, minprice, title, country, region, city, street,
@@ -62,13 +64,14 @@ func FetchOne(UID string) (*Listing, error) {
 	if !rows.Next() {
 		return nil, nil
 	}
-	listing, err := ScanListing(rows)
+	listing, err := scanListing(rows)
 	if err != nil {
 		return nil, err
 	}
 	return listing, nil
 }
 
+//Fetch all listings.
 func FetchAll() ([]Listing, error) {
 	rows, err := db.GetDB().Query(
 		`SELECT uid, minprice, title, country, region, city, street,
@@ -82,7 +85,7 @@ func FetchAll() ([]Listing, error) {
 
 	var listings []Listing
 	for rows.Next() {
-		listing, err := ScanListing(rows)
+		listing, err := scanListing(rows)
 		if err != nil {
 			return listings, err
 		}
@@ -92,6 +95,7 @@ func FetchAll() ([]Listing, error) {
 	return listings, nil
 }
 
+//Save listing if UID is not exists else update.
 func Save(listing Listing) error {
 	if l, _ := FetchOne(listing.UID); l != nil {
 		_, err := db.GetDB().Exec(

@@ -5,6 +5,7 @@ import (
 	"fmt"
 )
 
+//Factory function for creating concrete Feed value from partner name.
 func MakeFeed(partner string) (interface{}, error) {
 	switch partner {
 	case "xxx":
