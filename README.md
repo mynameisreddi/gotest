@@ -10,9 +10,9 @@
    
    `go install haw.com/process`
     
-   `$GOPATH/bin/process feed.xml partner`
+   `$GOPATH/bin/process <path_to_feedfile.xml> <partner_name>`
 
-   Now only one value for partner is allowed: `xxx`
+   Now only one value for `partner_name` is allowed: `xxx`
 4. Start web-server:
     
    `go install haw.com/api/app`
