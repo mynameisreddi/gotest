@@ -19,4 +19,4 @@
     
    `$GOPATH/bin/app`
   
-   List of listings will be available on http://localhost:8080/index
+   List of listings will be available on <http://localhost:8080/index>
