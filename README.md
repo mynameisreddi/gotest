@@ -5,7 +5,7 @@
 1. `cd gotest`
 2. To create table *listing* execute file *initdb.sql*. For example:
    
-   `psql -U postgres haw.com/initdb.sql`
+   `psql -U postgres -f haw.com/initdb.sql`
 3. Parse xml feed and fill database:
    
    `go install haw.com/process`
