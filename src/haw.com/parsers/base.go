@@ -1,4 +1,4 @@
-package base
+package parsers
 
 import (
 	"encoding/xml"

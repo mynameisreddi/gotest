@@ -5,8 +5,7 @@ import (
 	"fmt"
 	_ "github.com/lib/pq"
 	"haw.com/models"
-	"haw.com/parsers/base"
-	"haw.com/parsers/factory"
+	"haw.com/parsers"
 	"log"
 	"os"
 )
@@ -18,11 +17,11 @@ func main() {
 	}
 	defer inFile.Close()
 
-	feed, err := factory.MakeFeed("x")
+	feed, err := parsers.MakeFeed("xxx")
 	if err != nil {
 		log.Fatal(err)
 	}
-	listings, err := base.Parse(inFile, feed)
+	listings, err := parsers.Parse(inFile, feed)
 	if err != nil {
 		log.Fatal(err)
 	}
