@@ -19,7 +19,7 @@ type FeedItem interface {
 //
 //Due to reflection mechanism this function can work with any feed type.
 //Use FeedItem.ConvertToListing method for converting every item to Listing.
-func Parse(reader io.Reader, feed interface{}) ([]models.Listing, error) {
+func Parse(reader io.Reader, feed Feed) ([]models.Listing, error) {
 	if err := xml.NewDecoder(reader).Decode(feed); err != nil {
 		return nil, err
 	}
