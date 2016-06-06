@@ -1,4 +1,6 @@
 /* very eeasy and not optimized table, only for playing */
+DROP TABLE listing;
+
 CREATE TABLE listing (
     uid TEXT,
     minprice INT,
@@ -9,5 +11,5 @@ CREATE TABLE listing (
     street TEXT,
     postalcode TEXT,
     subarea TEXT,
-    housenumber INT,
+    housenumber TEXT,
     housetype TEXT)

@@ -13,7 +13,7 @@ type Address struct {
 	Street      string
 	PostalCode  string
 	SubArea     string
-	HouseNumber int
+	HouseNumber string
 	constants.HouseType
 }
 

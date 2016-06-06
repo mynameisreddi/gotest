@@ -29,16 +29,12 @@ type XFeedItem struct {
 }
 
 func (item XFeedItem) ConvertToListing() (*models.Listing, error) {
-	houseNumber, err := strconv.Atoi(strings.TrimSpace(item.HouseNumber))
-	if err != nil {
-		return nil, err
-	}
 	address := models.Address{
 		Region:      item.SubArea,
 		City:        item.City,
 		Street:      item.Street,
 		PostalCode:  item.PostalCode,
-		HouseNumber: houseNumber,
+		HouseNumber: item.HouseNumber,
 	}
 	houseTypesMap := map[int]constants.HouseType{
 		0:  constants.ROOM,
